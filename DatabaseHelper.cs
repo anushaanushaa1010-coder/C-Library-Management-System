@@ -7,7 +7,7 @@ namespace Library_Management_System
 {
     public static class DatabaseHelper
     {
-        private const string ConnectionString = "Data Source=localhost;Initial Catalog=library;Integrated Security=True;";
+        private const string ConnectionString = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=library;Integrated Security=True;";
 
         // Get connection
         public static SqlConnection GetConnection()

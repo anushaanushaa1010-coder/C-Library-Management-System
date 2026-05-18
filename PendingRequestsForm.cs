@@ -26,64 +26,15 @@ namespace Library_Management_System
 
         private void InitializeComponent()
         {
-            this.Text            = "Pending Borrow Requests";
-            this.Size            = new Size(1000, 620);
-            this.StartPosition   = FormStartPosition.CenterParent;
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
-            this.MaximizeBox     = false;
-            AppTheme.StyleForm(this);
+            this.SuspendLayout();
+            // 
+            // PendingRequestsForm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "PendingRequestsForm";
+            this.Load += new System.EventHandler(this.PendingRequestsForm_Load);
+            this.ResumeLayout(false);
 
-            Panel header = AppTheme.MakeHeader("📩 Borrow Requests", "Approve or reject student borrow requests");
-            this.Controls.Add(header);
-
-            // Filter bar
-            Panel bar = new Panel { Location = new Point(10, 80), Size = new Size(980, 50), BackColor = AppTheme.CardBg };
-            bar.Paint += (s, e) => e.Graphics.DrawRectangle(new System.Drawing.Pen(AppTheme.BorderColor), 0, 0, bar.Width - 1, bar.Height - 1);
-
-            Label lblFilter = new Label { Text = "Show:", Font = AppTheme.FontLabel, AutoSize = true, Location = new Point(10, 15) };
-            cmbFilter = new ComboBox
-            {
-                DropDownStyle = ComboBoxStyle.DropDownList, Font = AppTheme.FontInput,
-                Width = 160, Location = new Point(60, 12)
-            };
-            cmbFilter.Items.AddRange(new object[] { "Pending", "Approved", "Rejected", "All" });
-            cmbFilter.SelectedIndex = 0;
-            cmbFilter.SelectedIndexChanged += (s, e) => LoadRequests();
-
-            lblCount = new Label { Text = "0 requests", Font = AppTheme.FontBody, ForeColor = AppTheme.TextMuted, AutoSize = true, Location = new Point(240, 15) };
-
-            btnRefresh = AppTheme.MakePrimaryBtn("↺ Refresh", 100, 32);
-            btnRefresh.Location  = new Point(780, 9);
-            btnRefresh.BackColor = AppTheme.NavyMid;
-            btnRefresh.Click    += (s, e) => LoadRequests();
-
-            bar.Controls.AddRange(new Control[] { lblFilter, cmbFilter, lblCount, btnRefresh });
-            this.Controls.Add(bar);
-
-            // Grid
-            dgvRequests = new DataGridView { Location = new Point(10, 140), Size = new Size(980, 360) };
-            AppTheme.StyleGrid(dgvRequests);
-            this.Controls.Add(dgvRequests);
-
-            // Action buttons
-            btnApprove = AppTheme.MakeSuccessBtn("✅  Approve Request", 200, 44);
-            btnApprove.Location = new Point(570, 516);
-            btnApprove.Click   += BtnApprove_Click;
-
-            btnReject = AppTheme.MakeDangerBtn("✖  Reject Request", 200, 44);
-            btnReject.Location = new Point(780, 516);
-            btnReject.Click   += BtnReject_Click;
-
-            Label note = new Label
-            {
-                Text = "ℹ️  Approving a request will automatically issue the book to the student.",
-                Font = new Font("Segoe UI", 9f, FontStyle.Italic),
-                ForeColor = AppTheme.TextMuted, AutoSize = true, Location = new Point(10, 530)
-            };
-
-            this.Controls.Add(btnApprove);
-            this.Controls.Add(btnReject);
-            this.Controls.Add(note);
         }
 
         private void LoadRequests()
@@ -121,6 +72,11 @@ namespace Library_Management_System
                 }
 
             lblCount.Text = $"{dt?.Rows.Count ?? 0} request(s)";
+        }
+
+        private void PendingRequestsForm_Load(object sender, EventArgs e)
+        {
+
         }
 
         private void BtnApprove_Click(object sender, EventArgs e)

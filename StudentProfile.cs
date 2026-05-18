@@ -31,66 +31,20 @@ namespace Library_Management_System
 
         private void InitializeComponent()
         {
-            this.Text            = "My Profile";
-            this.Size            = new Size(700, 640);
-            this.StartPosition   = FormStartPosition.CenterParent;
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
-            this.MaximizeBox     = false;
-            AppTheme.StyleForm(this);
+            this.SuspendLayout();
+            // 
+            // StudentProfile
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "StudentProfile";
+            this.Load += new System.EventHandler(this.StudentProfile_Load);
+            this.ResumeLayout(false);
 
-            // Top navigation bar (horizontal) - placed above header
-            Panel nav = new Panel { Dock = DockStyle.Top, Height = 56, BackColor = AppTheme.NavyMid };
-            var sepNav = new Panel { Height = 2, Dock = DockStyle.Bottom, BackColor = AppTheme.Teal };
-            nav.Controls.Add(sepNav);
-            string[] navItems = { "Dashboard", "Search Books", "Request a Book", "My Borrowed Books", "My Requests", "My Fines", "My Profile", "Logout" };
-            int nx = 8;
-            foreach (var ni in navItems)
-            {
-                bool isLogout = ni.Contains("Logout");
-                var b = new Button
-                {
-                    Text = ni,
-                    Width = 140,
-                    Height = 48,
-                    Location = new Point(nx, 4),
-                    FlatStyle = FlatStyle.Flat,
-                    BackColor = isLogout ? Color.FromArgb(120,30,30) : AppTheme.NavyMid,
-                    ForeColor = Color.FromArgb(203,213,225),
-                    Font = new Font(AppTheme.FontBody.FontFamily, 9f),
-                    TextAlign = ContentAlignment.MiddleCenter,
-                    Cursor = Cursors.Hand
-                };
-                b.FlatAppearance.BorderSize = 0;
-                b.FlatAppearance.MouseOverBackColor = isLogout ? Color.FromArgb(180,30,30) : AppTheme.NavyLight;
-                nav.Controls.Add(b);
-                nx += 148;
-            }
-            this.Controls.Add(nav);
+        }
 
-            // Header (placed under nav) - hidden per request
-            Panel header = AppTheme.MakeHeader("👤 My Profile", "View and edit your information");
-            header.Dock = DockStyle.Top;
-            header.Visible = false;
-            this.Controls.Add(header);
+        private void StudentProfile_Load(object sender, EventArgs e)
+        {
 
-            // TabControl fills remaining area under header
-            TabControl tabs = new TabControl
-            {
-                Dock = DockStyle.Fill,
-                Font = AppTheme.FontBody
-            };
-
-            TabPage tabProfile = new TabPage("  📋 Profile Info  ");
-            TabPage tabPass    = new TabPage("  🔒 Change Password  ");
-
-            BuildProfileTab(tabProfile);
-            BuildPasswordTab(tabPass);
-
-            tabs.TabPages.Add(tabProfile);
-            tabs.TabPages.Add(tabPass);
-            AppTheme.StyleTabs(tabs);
-
-            this.Controls.Add(tabs);
         }
 
         private void BuildProfileTab(TabPage tab)
